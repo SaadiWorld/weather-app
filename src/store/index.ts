@@ -1,0 +1,8 @@
+import { applyMiddleware, createStore, Store } from 'redux';
+import thunk from 'redux-thunk';
+import reducer from './main/reducer';
+import { DispatchType, MainAction, MainState } from './main/types';
+
+export const store: Store<MainState, MainAction> & {
+  dispatch: DispatchType;
+} = createStore(reducer, applyMiddleware(thunk));

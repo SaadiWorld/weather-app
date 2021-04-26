@@ -5,6 +5,9 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateTemperatureUnit } from '../../store/main/action';
+import { MainState, TempScaleEnum } from '../../store/main/types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -18,15 +21,19 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     radio: {
       color: '#2c4859',
-      '&$checked': {
-        color: '#2c4859',
-      },
+      // '&$checked': {
+      //   color: '#2c4859',
+      // },
     },
   })
 );
 
 const RadioBtnContainer = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const tempUnit = useSelector<MainState, TempScaleEnum>(
+    (state) => state.tempUnit
+  );
 
   return (
     <div className={classes.root}>
@@ -40,18 +47,26 @@ const RadioBtnContainer = () => {
           <Grid item xs={12} sm={6}>
             <Box className={classes.box}>
               <FormControlLabel
-                value="celsius"
+                value={TempScaleEnum.C}
                 control={<Radio color="default" className={classes.radio} />}
                 label="Celsius"
+                checked={tempUnit === TempScaleEnum.C}
+                onChange={() =>
+                  dispatch(updateTemperatureUnit(TempScaleEnum.C))
+                }
               />
             </Box>
           </Grid>
           <Grid item xs={12} sm={6}>
             <Box className={classes.box}>
               <FormControlLabel
-                value="fahrenheit"
+                value={TempScaleEnum.F}
                 control={<Radio color="default" className={classes.radio} />}
                 label="Fahrenheit"
+                checked={tempUnit === TempScaleEnum.F}
+                onChange={() =>
+                  dispatch(updateTemperatureUnit(TempScaleEnum.F))
+                }
               />
             </Box>
           </Grid>
