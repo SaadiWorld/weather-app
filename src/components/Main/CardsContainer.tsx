@@ -1,0 +1,70 @@
+import { Box } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { ChevronLeft, ChevronRight } from '@material-ui/icons';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import WeatherCard from '../cards/WeatherCard';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      flexGrow: 1,
+      width: '100vw',
+    },
+    paper: {
+      padding: theme.spacing(2),
+      textAlign: 'center',
+      color: theme.palette.text.secondary,
+    },
+    boxLeft: {
+      padding: theme.spacing(2),
+      textAlign: 'left',
+    },
+    boxRight: {
+      padding: theme.spacing(2),
+      textAlign: 'right',
+    },
+    cardContainer: {
+      width: '100%',
+      margin: 0,
+      padding: '0 12px',
+    },
+  })
+);
+
+const CardsContainer = () => {
+  const classes = useStyles();
+  // const dispatch = useDispatch();
+  // const tempUnit = useSelector<MainState, TempScaleEnum>(
+  //   (state) => state.tempUnit
+  // );
+
+  const arr = [1, 2, 3];
+
+  return (
+    <div className={classes.root}>
+      <Grid container>
+        <Grid item xs={6}>
+          <Box className={classes.boxLeft}>
+            <ChevronLeft />
+          </Box>
+        </Grid>
+        <Grid item xs={6}>
+          <Box className={classes.boxRight}>
+            <ChevronRight />
+          </Box>
+        </Grid>
+      </Grid>
+      <Grid container spacing={3} className={classes.cardContainer}>
+        {arr.map((item, index) => (
+          <Grid key={index} item xs={4}>
+            <WeatherCard />
+          </Grid>
+        ))}
+      </Grid>
+    </div>
+  );
+};
+
+export default CardsContainer;
