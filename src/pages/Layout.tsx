@@ -1,3 +1,4 @@
+import { CircularProgress } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Footer from '../components/Footer';
@@ -17,11 +18,15 @@ const Layout = () => {
   return (
     <>
       <Header />
-      {!isLoading && (
+      {!isLoading ? (
         <>
           <Main />
           <Footer />
         </>
+      ) : (
+        <div className="loading-container">
+          <CircularProgress />
+        </div>
       )}
     </>
   );
