@@ -5,6 +5,7 @@ import {
   UPDATE_LOADER_STATUS,
   ADD_WEATHER_DATA,
   WeatherDataInterface,
+  UPDATE_SELECTED_DATE,
 } from './types';
 
 export function updateTemperatureUnit(tempUnit: TempScaleEnum): MainAction {
@@ -18,6 +19,13 @@ export function updateLoaderStatus(isLoading: boolean): MainAction {
   return {
     type: UPDATE_LOADER_STATUS,
     isLoading,
+  };
+}
+
+export function updateSelectedDate(selectedDate: string): MainAction {
+  return {
+    type: UPDATE_SELECTED_DATE,
+    selectedDate,
   };
 }
 

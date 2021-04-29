@@ -1,8 +1,12 @@
 import axios from 'axios';
 import moment from 'moment';
 import { ThunkAction } from 'redux-thunk';
-import { API_URL } from '../../lib/utils/common';
-import { addWeatherData, updateLoaderStatus } from './action';
+import { API_URL, KelvinToFahrenheit } from '../../lib/utils/common';
+import {
+  addWeatherData,
+  updateLoaderStatus,
+  updateSelectedDate,
+} from './action';
 import { MainAction, MainState, WeatherDataByDate } from './types';
 
 export function fetchWeatherData(): ThunkAction<
@@ -20,7 +24,7 @@ export function fetchWeatherData(): ThunkAction<
         const weatherInfo: WeatherDataByDate = {
           time: weather.dt_txt,
           timestamp: weather.dt,
-          temp: weather.main.temp,
+          temp: KelvinToFahrenheit(weather.main.temp),
         };
         if (date) {
           if (!dateGroups[date]) {
@@ -32,6 +36,7 @@ export function fetchWeatherData(): ThunkAction<
       }, {});
       console.log(result);
       dispatch(addWeatherData(result));
+      dispatch(updateSelectedDate(Object.keys(result)[0]));
       dispatch(updateLoaderStatus(false));
     } catch (e) {
       console.log('Error occurred while fetching data!', e);

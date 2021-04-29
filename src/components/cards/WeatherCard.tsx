@@ -1,14 +1,23 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { handleTempFormatString } from '../../lib/utils/common';
+import { updateSelectedDate } from '../../store/main/action';
+import { getAvgTempByDate } from '../../store/main/selectors';
+import { MainState, TempScaleEnum } from '../../store/main/types';
 
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
+    cursor: 'pointer',
+
+    '&.selected': {
+      border: '1px solid #2c4859',
+    },
   },
   bullet: {
     display: 'inline-block',
@@ -23,34 +32,36 @@ const useStyles = makeStyles({
   },
 });
 
-const WeatherCard = () => {
+interface WeatherCardProps {
+  date: string;
+}
+
+const WeatherCard = ({ date }: WeatherCardProps) => {
+  const dispatch = useDispatch();
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
+  const tempUnit = useSelector<MainState, TempScaleEnum>(
+    (state) => state.tempUnit
+  );
+  const selectedDate = useSelector<MainState, string>(
+    (state) => state.selectedDate
+  );
+  const avgTemp = useSelector<MainState, number>(getAvgTempByDate(date));
 
   return (
-    <Card className={classes.root} variant="outlined">
+    <Card
+      className={`${classes.root} ${selectedDate === date ? 'selected' : ''}`}
+      // variant="outlined"
+      onClick={() => dispatch(updateSelectedDate(date))}
+    >
       <CardContent>
-        <Typography
-          className={classes.title}
-          color="textSecondary"
-          gutterBottom
-        >
-          Word of the Day
-        </Typography>
         <Typography variant="h5" component="h2">
-          be{bull}nev{bull}o{bull}lent
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          adjective
-        </Typography>
-        <Typography variant="body2" component="p">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
+          {handleTempFormatString(avgTemp, tempUnit)}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Learn More</Button>
+        <Typography variant="body2" component="p">
+          {date}
+        </Typography>
       </CardActions>
     </Card>
   );

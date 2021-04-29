@@ -3,14 +3,15 @@ import Grid from '@material-ui/core/Grid';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { ChevronLeft, ChevronRight } from '@material-ui/icons';
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { MainState, WeatherDataInterface } from '../../store/main/types';
 import WeatherCard from '../cards/WeatherCard';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
-      width: '100vw',
+      width: '100%',
     },
     paper: {
       padding: theme.spacing(2),
@@ -35,12 +36,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const CardsContainer = () => {
   const classes = useStyles();
-  // const dispatch = useDispatch();
-  // const tempUnit = useSelector<MainState, TempScaleEnum>(
-  //   (state) => state.tempUnit
-  // );
 
-  const arr = [1, 2, 3];
+  const weatherData = useSelector<MainState, WeatherDataInterface | undefined>(
+    (state) => state.weatherData
+  );
 
   return (
     <div className={classes.root}>
@@ -57,11 +56,12 @@ const CardsContainer = () => {
         </Grid>
       </Grid>
       <Grid container spacing={3} className={classes.cardContainer}>
-        {arr.map((item, index) => (
-          <Grid key={index} item xs={4}>
-            <WeatherCard />
-          </Grid>
-        ))}
+        {weatherData &&
+          Object.keys(weatherData).map((date, index) => (
+            <Grid key={index} item xs={4}>
+              <WeatherCard date={date} />
+            </Grid>
+          ))}
       </Grid>
     </div>
   );

@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
-      width: '100vw',
+      width: '100%',
     },
     box: {
       padding: theme.spacing(2),

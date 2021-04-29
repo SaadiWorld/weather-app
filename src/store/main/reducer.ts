@@ -4,12 +4,14 @@ import {
   MainState,
   TempScaleEnum,
   UPDATE_LOADER_STATUS,
+  UPDATE_SELECTED_DATE,
   UPDATE_TEMPERATURE_UNIT,
 } from './types';
 
 const initialState: MainState = {
   tempUnit: TempScaleEnum.F,
   isLoading: true,
+  selectedDate: '',
   weatherData: undefined,
 };
 
@@ -27,6 +29,11 @@ const reducer = (
       return {
         ...state,
         isLoading: action.isLoading,
+      };
+    case UPDATE_SELECTED_DATE:
+      return {
+        ...state,
+        selectedDate: action.selectedDate,
       };
     case ADD_WEATHER_DATA:
       return {
