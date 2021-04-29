@@ -6,4 +6,5 @@ import { DispatchType, MainAction, MainState } from './main/types';
 
 export const store: Store<MainState, MainAction> & {
   dispatch: DispatchType;
-} = createStore(reducer, composeWithDevTools(applyMiddleware(thunk))); //Need to be updated for production
+} = createStore(reducer, applyMiddleware(thunk));
+// } = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
