@@ -18,7 +18,6 @@ export function fetchWeatherData(): ThunkAction<
   return async (dispatch) => {
     try {
       const { data } = await axios.get(API_URL);
-      console.log(data);
       const result = data.list.reduce((dateGroups: any, weather: any) => {
         const date = moment(weather?.dt_txt).format('MMMM DD, YYYY');
         const weatherInfo: WeatherDataByDate = {
@@ -34,7 +33,6 @@ export function fetchWeatherData(): ThunkAction<
         }
         return dateGroups;
       }, {});
-      console.log(result);
       dispatch(addWeatherData(result));
       dispatch(updateSelectedDate(Object.keys(result)[0]));
       dispatch(updateLoaderStatus(false));

@@ -53,8 +53,6 @@ const ChartContainer = () => {
     labels: [],
   });
 
-  console.log('selectedDateData', selectedDateData);
-
   useEffect(() => {
     const newAgentsOverview: BarChartData = {
       // ...barChartData,

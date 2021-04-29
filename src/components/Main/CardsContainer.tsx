@@ -42,6 +42,9 @@ const CardsContainer = () => {
     (state) => state.weatherData
   );
   const [weatherDates, setWeatherDates] = useState<string[]>(['']);
+  const [weatherDatesTrimmed, setWeatherDatesTrimmed] = useState<string[]>([
+    '',
+  ]);
   const selectedDate = useSelector<MainState, string>(
     (state) => state.selectedDate
   );
@@ -56,6 +59,17 @@ const CardsContainer = () => {
   useEffect(() => {
     setSelectedDateIndex(weatherDates.indexOf(selectedDate));
   }, [selectedDate, weatherDates]);
+
+  useEffect(() => {
+    if (selectedDateIndex < 3) {
+      setWeatherDatesTrimmed(weatherDates.slice(0, 3));
+      return;
+    }
+    if (selectedDateIndex >= 3) {
+      setWeatherDatesTrimmed(weatherDates.slice(3));
+      return;
+    }
+  }, [selectedDateIndex, weatherDates]);
 
   const handleLeftClick = () => {
     if (selectedDateIndex > 0) {
@@ -93,7 +107,7 @@ const CardsContainer = () => {
         </Grid>
       </Grid>
       <Grid container spacing={3} className={classes.cardContainer}>
-        {weatherDates.map((date, index) => (
+        {weatherDatesTrimmed.map((date, index) => (
           <Grid key={index} item xs={4}>
             <WeatherCard date={date} />
           </Grid>
