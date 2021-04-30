@@ -12,7 +12,7 @@ import { MainState, TempScaleEnum } from '../../store/main/types';
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 275,
+    minWidth: '30%',
     cursor: 'pointer',
 
     '&.selected': {
@@ -50,10 +50,9 @@ const WeatherCard = ({ date }: WeatherCardProps) => {
   return (
     <Card
       className={`${classes.root} ${selectedDate === date ? 'selected' : ''}`}
-      // variant="outlined"
       onClick={() => dispatch(updateSelectedDate(date))}
     >
-      <CardContent>
+      <CardContent style={{ padding: '8px' }}>
         <Typography variant="h5" component="h2">
           {handleTempFormatString(avgTemp, tempUnit)}
         </Typography>

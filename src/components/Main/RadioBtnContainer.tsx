@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       flexGrow: 1,
       width: '100%',
+      marginTop: '30px',
     },
     box: {
       padding: theme.spacing(2),
@@ -21,9 +22,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     radio: {
       color: '#2c4859',
-      // '&$checked': {
-      //   color: '#2c4859',
-      // },
     },
   })
 );

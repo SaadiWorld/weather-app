@@ -10,6 +10,7 @@ import { MainState } from '../store/main/types';
 const Layout = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector<MainState, boolean>((state) => state.isLoading);
+  const isError = useSelector<MainState, boolean>((state) => state.isError);
 
   useEffect(() => {
     dispatch(fetchWeatherData());
@@ -18,16 +19,16 @@ const Layout = () => {
   return (
     <>
       <Header />
-      {!isLoading ? (
+      {isLoading ? (
+        <div className="loading-container">
+          <CircularProgress />
+        </div>
+      ) : !isError ? (
         <>
           <Main />
           <Footer />
         </>
-      ) : (
-        <div className="loading-container">
-          <CircularProgress />
-        </div>
-      )}
+      ) : null}
     </>
   );
 };

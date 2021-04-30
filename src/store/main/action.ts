@@ -3,6 +3,7 @@ import {
   TempScaleEnum,
   UPDATE_TEMPERATURE_UNIT,
   UPDATE_LOADER_STATUS,
+  UPDATE_ERROR_STATUS,
   ADD_WEATHER_DATA,
   WeatherDataInterface,
   UPDATE_SELECTED_DATE,
@@ -33,5 +34,12 @@ export function addWeatherData(weatherData: WeatherDataInterface): MainAction {
   return {
     type: ADD_WEATHER_DATA,
     weatherData,
+  };
+}
+
+export function updateErrorStatus(isError: boolean): MainAction {
+  return {
+    type: UPDATE_ERROR_STATUS,
+    isError,
   };
 }

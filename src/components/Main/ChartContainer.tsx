@@ -55,7 +55,6 @@ const ChartContainer = () => {
 
   useEffect(() => {
     const newAgentsOverview: BarChartData = {
-      // ...barChartData,
       labels: selectedDateData.map((el) => moment(el.time).format('hh:mm A')),
       datasets: [
         {
@@ -70,12 +69,9 @@ const ChartContainer = () => {
     };
 
     setBarChartData(newAgentsOverview);
-    return () => {
-      //cleanup;
-    };
   }, [selectedDateData, tempUnit]);
 
-  const options2 = {
+  const options = {
     responsive: true,
     maintainAspectRatio: false,
     legend: {
@@ -89,29 +85,21 @@ const ChartContainer = () => {
         {
           id: 'main-axis',
           ticks: {
-            stepSize: 10, // this worked as expected
+            stepSize: 10,
             display: false,
           },
         },
       ],
-      // xAxes: [{
-      //     id: 'main-x-axis',
-      //     ticks: {
-      //         stepSize: 30 // this did not work as expected
-      //     }
-      // }]
     },
   };
 
-  // const donutRef = useRef<Bar | null>(null);
   return (
     <div className={classes.root}>
       <Grid container spacing={0}>
         <Grid item xs={12}>
           <Box>
             <div className="chart-container">
-              {/* <Bar ref={donutRef} options={options2} data={chartData} /> */}
-              <Bar type="chart" options={options2} data={barChartData} />
+              <Bar type="chart" options={options} data={barChartData} />
             </div>
           </Box>
         </Grid>

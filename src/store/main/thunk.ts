@@ -1,9 +1,11 @@
 import axios from 'axios';
 import moment from 'moment';
+import { toast } from 'react-toastify';
 import { ThunkAction } from 'redux-thunk';
 import { API_URL, KelvinToFahrenheit } from '../../lib/utils/common';
 import {
   addWeatherData,
+  updateErrorStatus,
   updateLoaderStatus,
   updateSelectedDate,
 } from './action';
@@ -36,8 +38,12 @@ export function fetchWeatherData(): ThunkAction<
       dispatch(addWeatherData(result));
       dispatch(updateSelectedDate(Object.keys(result)[0]));
       dispatch(updateLoaderStatus(false));
+      dispatch(updateErrorStatus(false));
     } catch (e) {
       console.log('Error occurred while fetching data!', e);
+      dispatch(updateLoaderStatus(false));
+      dispatch(updateErrorStatus(true));
+      toast.error(e.message);
     }
   };
 }

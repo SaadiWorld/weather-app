@@ -106,7 +106,7 @@ const CardsContainer = () => {
           </Box>
         </Grid>
       </Grid>
-      <Grid container spacing={3} className={classes.cardContainer}>
+      <Grid container spacing={2} className={classes.cardContainer}>
         {weatherDatesTrimmed.map((date, index) => (
           <Grid key={index} item xs={4}>
             <WeatherCard date={date} />

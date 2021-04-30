@@ -3,6 +3,7 @@ import {
   MainAction,
   MainState,
   TempScaleEnum,
+  UPDATE_ERROR_STATUS,
   UPDATE_LOADER_STATUS,
   UPDATE_SELECTED_DATE,
   UPDATE_TEMPERATURE_UNIT,
@@ -13,6 +14,7 @@ const initialState: MainState = {
   isLoading: true,
   selectedDate: '',
   weatherData: undefined,
+  isError: false,
 };
 
 const reducer = (
@@ -39,6 +41,11 @@ const reducer = (
       return {
         ...state,
         weatherData: action.weatherData,
+      };
+    case UPDATE_ERROR_STATUS:
+      return {
+        ...state,
+        isError: action.isError,
       };
     default:
       return state;

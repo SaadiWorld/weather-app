@@ -1,7 +1,7 @@
 import { TempScaleEnum } from '../../store/main/types';
 
 export const API_URL =
-  'http://api.openweathermap.org/data/2.5/forecast?q=Munich,de&APPID=ffd8a2e38b6f4eaa28af59c1501d349e&cnt=40';
+  'https://api.openweathermap.org/data/2.5/forecast?q=Munich,de&APPID=ffd8a2e38b6f4eaa28af59c1501d349e&cnt=40';
 
 export const KelvinToFahrenheit = (kelvinTemp: number) => {
   const celsius = kelvinTemp - 273.15;
